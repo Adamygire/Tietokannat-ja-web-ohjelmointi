@@ -1,0 +1,25 @@
+{% extends "base/layout.html" %}
+{% block content %}
+
+<h2>New course</h2>
+
+<form action="/courses/new" method="post">
+Name: <br><input type="text" name="name" minlength="3" maxlength="20">
+
+<p>
+Subject: <br><input type="text" name="subject">
+
+<p>
+Starts: <br><input type="date" name="starts">
+
+<p>
+Ends: <br><input type="date" name="ends">
+
+<p>
+<input type="submit" value="Create">
+</form>
+
+<p>
+<a href="/">Home</a>
+
+{% endblock %}

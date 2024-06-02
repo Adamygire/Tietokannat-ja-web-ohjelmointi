@@ -1,0 +1,22 @@
+{% extends "base/layout.html" %}
+
+{% block content %}
+
+<h2>Courses</h2>
+
+<p>
+There are {{ count }} courses.
+
+
+<p>
+{% for course in courses %}
+<a href="/courses/{{ course.id }}">{{ course.name }}</a>
+<hr>
+{% endfor %}
+
+<p>
+{% if session.user_role == 2 %}
+<a href="/courses/new">Create a course</a>
+{% endif %}
+
+{% endblock %}

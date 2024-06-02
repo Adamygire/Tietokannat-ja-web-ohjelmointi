@@ -1,0 +1,25 @@
+{% extends "base/layout.html" %}
+{% block content %}
+
+<h2>registration</h2>
+
+<form action="/signup" method="post">
+Name: <br><input type="text" name="name" minlength="3" maxlength="20">
+<p>
+E-mail: <br><input type="email" name="email">
+<p>
+Password: <br><input type="password" name="password">
+<p>
+user role:
+<select name="role">
+<option value=1> Student
+<option value=2> Teacher
+</select>
+<p>
+<input type="submit" value="Create an account">
+</form>
+
+<p>
+<a href="/">Return</a>
+
+{% endblock %}
