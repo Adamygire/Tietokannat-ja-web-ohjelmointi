@@ -9,7 +9,51 @@
 
 
 <p>
-    {{ course.starts }} -  {{ course.ends }} 
-    
+    {{ course.starts }} - {{ course.ends }}
+
+
+{% if parts %}
+<h4>Parts:</h4>
+
+    {% for part in parts %}
+    <p>
+        <a href="/parts/{{ part.id }}">{{ part.id }} - ({{ part.deadline }})</a>
+    </p>
+    {% endfor %}
+{% endif %}
+
+<hr>
+{% if is_enrolled %}
+<form action="/courses/{{ course.id }}/unenroll" method="post">
+    <input type="hidden" name="user_id" value="{{ session.user_id }}">
+    <input type="submit" value="unenroll">
+</form>
+{% elif session.user_role == 1 %}
+<form action="/courses/{{ course.id }}/enroll" method="post">
+    <input type="hidden" name="user_id" value="{{ session.user_id }}">
+    <input type="submit" value="enroll">
+</form>
+{% endif %}
+
+<br>
+
+{% if session.user_role == course.teacher_id %}
+<a href="/courses/{{ course.id }}/parts" class="btn btn-primary">Create a new part</a>
+
+<br>
+<br>
+
+<form action="/courses/{{ course.id }}/edit" method="post">
+    <input type="hidden" name="user_id" value="{{ session.user_id }}">
+    <input type="submit" value="edit" class="btn btn-secondary">
+</form>
+
+<br>
+<form action="/courses/{{ course.id }}/delete" method="post">
+    <input type="hidden" name="user_id" value="{{ session.user_id }}">
+    <input type="submit" value="delete" class="btn btn-danger">
+</form>
+
+{% endif %}
 
 {% endblock %}

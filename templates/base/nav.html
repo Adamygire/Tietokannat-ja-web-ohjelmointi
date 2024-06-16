@@ -12,7 +12,7 @@
         </ul>
         <div class="col-4 d-flex justify-content-end align-items-center">          
         {% if session.user_id %}
-        {{session.user_email}} &nbsp;
+        {{session.user_name}} - {{session.user_email}} &nbsp;
           <a class="btn btn-sm btn-outline-secondary" href="/signout">Sign out</a>
         {% else %}
           <a class="btn btn-sm btn-outline-secondary" href="/signup">Sign up</a> &nbsp;

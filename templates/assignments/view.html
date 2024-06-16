@@ -1,0 +1,12 @@
+{% extends "base/layout.html" %}
+
+{% block content %}
+
+<h2>Assignment #{{ assignment.id }} (0/{{ assignment.points }})</h2>
+
+<h4>Part of: <a href="/courses/{{ course.id }}">{{ course.name }}</a></h4>
+
+<p>Question: {{ assignment.answer }}</p>
+
+
+{% endblock %}

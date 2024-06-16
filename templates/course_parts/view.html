@@ -1,0 +1,43 @@
+{% extends "base/layout.html" %}
+
+{% block content %}
+
+<h2>Part #{{ part.id }} - ({{ part.deadline }})</h2>
+
+<h4><a href="/courses/{{ course.id }}">{{ course.name }}</a></h4>
+
+<p>{{ part.material }}</p>
+
+{% if assignments %}
+<h4>assignments:</h4>
+
+    {% for assignment in assignments %}
+    <p>
+        <a href="/parts/{{ part.id }}/assignments/{{ assignment.id }}">{{ assignment.id }} - ({{ assignment.points }})</a>
+    </p>
+    {% endfor %}
+{% endif %}
+
+
+<hr>
+
+{% if session.user_role == course.teacher_id %}
+<a href="/parts/{{ part.id }}/assignments" class="btn btn-primary">Create a new assignment</a>
+
+<br>
+<br>
+
+<form action="/parts/{{ part.id }}/edit" method="post">
+    <input type="hidden" name="user_id" value="{{ session.user_id }}">
+    <input type="submit" value="edit" class="btn btn-secondary">
+</form>
+
+<br>
+<form action="/parts/{{ part.id }}/delete" method="post">
+    <input type="hidden" name="user_id" value="{{ session.user_id }}">
+    <input type="submit" value="delete" class="btn btn-danger">
+</form>
+
+{% endif %}
+
+{% endblock %}

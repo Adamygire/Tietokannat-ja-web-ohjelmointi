@@ -1,0 +1,20 @@
+{% extends "base/layout.html" %}
+{% block content %}
+
+<h2>New course</h2>
+
+<form action="/courses/{{ course.id }}/parts" method="post">
+<p>
+Deadline: <br><input type="date" name="deadline">
+
+<p>
+Material: <br><textarea name="material"></textarea>
+
+<p>
+<input type="submit" value="Create">
+</form>
+
+<p>
+<a href="/">Home</a>
+
+{% endblock %}

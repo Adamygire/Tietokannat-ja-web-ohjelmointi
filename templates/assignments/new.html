@@ -1,0 +1,28 @@
+{% extends "base/layout.html" %}
+{% block content %}
+
+<h2>New assignment</h2>
+
+<form action="/parts/{{ part.id }}/assignments" method="post">
+
+    <p> Type: <br>
+        <select name="type">
+            <option value=1> multichoice
+            <option value=2> text
+        </select>
+
+        <p> Question: <br><input type="text" name="question">
+
+        <p> Answer: <br><input type="text" name="answer">
+
+    <p> Points: <br><input type="number" name="points">
+
+    <p>
+        <input type="submit" value="Create">
+</form>
+
+
+<p>
+    <a href="/">Home</a>
+
+    {% endblock %}
