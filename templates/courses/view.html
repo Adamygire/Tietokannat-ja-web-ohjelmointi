@@ -5,12 +5,12 @@
 <h2>{{ course.name }}</h2>
 
 <p>
-    {{ course.subject }}
+    <b>Subject</b>: {{ course.subject }}<br>
+    <b>Starts</b>: {{ course.starts }}<br>
+    <b>Ends</b>: {{ course.ends }}
+</p>
 
-
-<p>
-    {{ course.starts }} - {{ course.ends }}
-
+<hr>
 
 {% if parts %}
 <h4>Parts:</h4>
@@ -27,17 +27,36 @@
 <form action="/courses/{{ course.id }}/unenroll" method="post">
     <input type="hidden" name="user_id" value="{{ session.user_id }}">
     <input type="submit" value="unenroll">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 {% elif session.user_role == 1 %}
 <form action="/courses/{{ course.id }}/enroll" method="post">
     <input type="hidden" name="user_id" value="{{ session.user_id }}">
     <input type="submit" value="enroll">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 {% endif %}
 
 <br>
 
-{% if session.user_role == course.teacher_id %}
+{% if session.user_id == course.teacher_id %}
+
+{% if students %}
+<h4>Students:</h4>
+
+<ul>
+    {% for student in students %}
+    <li>
+        {{student.name}} ({{student.email}})
+    </li>
+    {% endfor %}
+</ul>
+
+
+<hr>
+{% endif %}
+
+
 <a href="/courses/{{ course.id }}/parts" class="btn btn-primary">Create a new part</a>
 
 <br>
@@ -46,12 +65,14 @@
 <form action="/courses/{{ course.id }}/edit" method="post">
     <input type="hidden" name="user_id" value="{{ session.user_id }}">
     <input type="submit" value="edit" class="btn btn-secondary">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 
 <br>
 <form action="/courses/{{ course.id }}/delete" method="post">
     <input type="hidden" name="user_id" value="{{ session.user_id }}">
     <input type="submit" value="delete" class="btn btn-danger">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 
 {% endif %}

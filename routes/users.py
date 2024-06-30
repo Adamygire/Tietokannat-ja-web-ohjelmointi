@@ -7,7 +7,8 @@ import users
 @app.route("/signup", methods=["get", "post"])
 def signup():
     if request.method == "POST":
-        print("form", request.form)
+        print("[POST] /signup - FORM:", request.form)
+
         name = request.form["name"]
         if len(name) < 3 or len(name) > 20:
             return render_template(
@@ -21,7 +22,7 @@ def signup():
         if not users.signup(name, email, password, role):
             return render_template("error.html", message="Rekisteröinti ei onnistunut")
 
-        flash(f"You have created the course.")
+        flash("You have created the course.")
         return redirect("/")
 
     return render_template("users/signup.html")
@@ -30,6 +31,7 @@ def signup():
 @app.route("/signin", methods=["get", "post"])
 def signin():
     if request.method == "POST":
+        print("[POST] /signin - FORM:", request.form)
         email = request.form["email"]
         password = request.form["password"]
 

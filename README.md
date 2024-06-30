@@ -59,13 +59,13 @@ flask run
 - [x] Opettajan voi tehdä kaiken sen mitä vierailija sekä järjestelmään kirjautunut käyttäjä voi tehdä.
 - [x] Opettaja pystyy luomaan uuden kurssin, muuttamaan olemassa olevaa kurssia ja poistamaan kurssin.
 - [x] Opettaja pystyy lisäämään kurssille tekstimateriaalia ja tehtäviä.
-- [ ] Opettaja pystyy näkemään kurssistaan tilaston, keitä opiskelijoita on kurssilla ja mitkä kurssin tehtävät kukin on ratkonut.
+- [x] Opettaja pystyy näkemään kurssistaan tilaston, keitä opiskelijoita on kurssilla ja mitkä kurssin tehtävät kukin on ratkonut.
 
 
 ### Opiskelija toiminnot:
 - [x] Opiskelija voi tehdä kaiken sen mitä vierailija sekä järjestelmään kirjautunut käyttäjä voi tehdä.
 - [x] Opiskelija näkee listan kursseista ja voi liittyä kurssille.
 - [x] Opiskelija voi lukea kurssin tekstimateriaalia.
-- [ ] Opiskelija voi ratkoa kurssin tehtäviä.
-- [ ] Opiskelija pystyy näkemään tilaston, mitkä kurssin tehtävät hän on ratkonut.
+- [x] Opiskelija voi ratkoa kurssin tehtäviä.
+- [x] Opiskelija pystyy näkemään tilaston, mitkä kurssin tehtävät hän on ratkonut.
 

@@ -65,5 +65,6 @@ def user_role():
 
 
 def check_csrf():
-    if session["csrf_token"] != request.form["csrf_token"]:
+    if session.get("csrf_token", 0) != request.form["csrf_token"]:
+        print("[ERROR]: CSFR")
         abort(403)

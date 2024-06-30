@@ -10,10 +10,8 @@ E-mail: <br><input type="email" name="email">
 Password: <br><input type="password" name="password">
 <p>
 <input type="submit" value="Login">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 If you don't have an account, you can create a new one <a href="/signup">here</a>
-
-<p>
-<a href="/">Return</a>
 
 {% endblock %}

@@ -4,6 +4,7 @@ from flask import session
 from sqlalchemy.sql import text
 
 from db import db
+import users
 
 
 def new(name, subject, starts, ends, teacher_id):
@@ -86,11 +87,21 @@ def unenroll(course_id, user_id):
 def is_enrolled(course_id):
     sql = "SELECT * FROM Enrolments WHERE course_id = :course_id and student_id = :student_id"
     result = db.session.execute(
-        text(sql), {"course_id": course_id, "student_id": session["user_id"]}
+        text(sql), {"course_id": course_id, "student_id": users.user_id()}
     )
     enrollment = result.fetchone()
     print(f"enrollment: {enrollment}")
     return enrollment is not None
+
+
+def get_students(course_id):
+    sql = "SELECT name, email, student_id FROM Enrolments JOIN Users on Users.id = student_id WHERE course_id = :course_id"
+    result = db.session.execute(
+        text(sql), {"course_id": course_id}
+    )
+    students = result.fetchall()
+    print(f"students: {students}")
+    return students
 
 
 def edit(course_id, name, subject, starts, ends):

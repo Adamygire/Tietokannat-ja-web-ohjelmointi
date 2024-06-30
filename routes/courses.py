@@ -11,6 +11,7 @@ import course_parts
 def courses_index():
     if request.method == "POST":
         print("[POST] /courses - FORM:", request.form)
+        users.check_csrf()
 
         name = request.form["name"]
         subject = request.form["subject"]
@@ -44,12 +45,14 @@ def courses_new():
 def course_view(course_id):
     course = courses.get(course_id)
     is_enrolled = courses.is_enrolled(course_id)
+    students = courses.get_students(course_id)
     print(f"course_view: is_enrolled={is_enrolled}")
     return render_template(
         "courses/view.html",
         course=course,
         is_enrolled=is_enrolled,
         parts=course_parts.get_all(course_id),
+        students=students,
     )
 
 
@@ -57,6 +60,7 @@ def course_view(course_id):
 def course_edit(course_id):
     if request.method == "POST":
         print(f"[POST] /courses/{course_id}/edit - FORM:", request.form)
+        users.check_csrf()
     else:
         print(f"[GET] /courses/{course_id}/edit")
     return render_template("error.html", message="Not implemented.")

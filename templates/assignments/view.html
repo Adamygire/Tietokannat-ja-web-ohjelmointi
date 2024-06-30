@@ -2,11 +2,55 @@
 
 {% block content %}
 
-<h2>Assignment #{{ assignment.id }} (0/{{ assignment.points }})</h2>
+<h2>Assignment <a href="/parts/{{ part.id }}/assignments/{{ assignment.id }}"> #{{ assignment.id }}</a></h2>
 
-<h4>Part of: <a href="/courses/{{ course.id }}">{{ course.name }}</a></h4>
+<p>Part of: <a href="/courses/{{ course.id }}">{{ course.name }}</a> / <a href="/parts/{{ part.id }}">part #{{ part.id }}</a></p>
 
-<p>Question: {{ assignment.answer }}</p>
+<hr>
 
+<b>Question</b>: {{ assignment.question }} <br>
+
+{% if response %}
+<p>
+    <b>Your answer:</b>
+    {{ response.answer }}<br>
+</p>
+<p>
+    <small><b>At:</b> ({{ response.done }})</small>
+</p>
+
+<h4>Score: {{ score }}/{{ assignment.points }}</h4>
+{% endif %}
+
+
+{% if session.user_id == course.teacher_id %}
+<b>Answer:</b> <i>{{ assignment.answer }}</i><br>
+<b>Average:</b> {{ stats }}/{{ assignment.points }}<br>
+
+{% else %}
+<form action="/parts/{{ part.id }}/assignments/{{ assignment.id }}/answer" method="post">
+    <textarea name="answer" placeholder="Put your answer here"></textarea><br>
+    <input type="submit" value="send">
+</form>
+{% endif %}
+
+<p>
+{% if session.user_id == course.teacher_id %}
+<form action="/parts/{{ part.id }}/assignments/{{ assignment.id }}/edit" method="post">
+    <input type="submit" value="edit" class="btn btn-secondary">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
+
+<br>
+
+<form action="/parts/{{ part.id }}/assignments/{{ assignment.id }}/delete" method="post">
+    <input type="submit" value="delete" class="btn btn-danger">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
+{% endif %}
+</p>
+
+<hr>
+<a href="/parts/{{ part.id }}">back</a>
 
 {% endblock %}

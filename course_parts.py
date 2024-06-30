@@ -51,3 +51,23 @@ def delete(part_id):
         print("course_parts.delete - error:", error)
         return False
     return True
+
+
+def get_score(part_id, student_id):
+    args = { "part_id": part_id, "student_id":student_id }
+    sql = "SELECT sum(score), sum(points) FROM Scores JOIN Assignments ON Assignments.id = assignment_id WHERE course_part_id = :part_id and student_id = :student_id"
+    print("assignments.get_score - args:", args)
+    result = db.session.execute(text(sql), args)
+    score = result.fetchone()
+    print("assignments.get_score - assignments:", score)
+    return score
+
+
+def get_stats(part_id):
+    args = { "part_id": part_id }
+    sql = "SELECT name, email, sum(score), sum(points)  FROM Scores JOIN Assignments, Users ON Assignments.id = assignment_id and Users.id = student_id WHERE course_part_id = :part_id"
+    print("assignments.get_stats - args:", args)
+    result = db.session.execute(text(sql), args)
+    answer = result.fetchall()
+    print("assignments.get_stats - assignments:", answer)
+    return answer

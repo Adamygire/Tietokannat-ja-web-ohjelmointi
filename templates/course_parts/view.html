@@ -6,6 +6,24 @@
 
 <h4><a href="/courses/{{ course.id }}">{{ course.name }}</a></h4>
 
+
+<p>
+  {% if session.user_role == 1 %}
+    {% if score %}
+      <b>My score</b>: {{score[0]}}/{{score[1]}}
+    {% endif %}
+  {% else %}
+    {% if stats %}
+      <b>Part stats</b>:
+      <ui>
+        {% for stat in stats%}
+          <li>{{stat[0]}} ({{stat[1]}}): <b>{{stat[2]}}/{{stat[3]}}</b></li>
+        {% endfor %}
+      </ui>
+    {% endif %}
+  {% endif %}
+</p>
+
 <p>{{ part.material }}</p>
 
 {% if assignments %}
@@ -13,15 +31,14 @@
 
     {% for assignment in assignments %}
     <p>
-        <a href="/parts/{{ part.id }}/assignments/{{ assignment.id }}">{{ assignment.id }} - ({{ assignment.points }})</a>
+        <a href="/parts/{{ part.id }}/assignments/{{ assignment.id }}">{{ assignment.question }}</a> ({{ assignment.points }} points)
     </p>
     {% endfor %}
+<hr>
 {% endif %}
 
 
-<hr>
-
-{% if session.user_role == course.teacher_id %}
+{% if session.user_id == course.teacher_id %}
 <a href="/parts/{{ part.id }}/assignments" class="btn btn-primary">Create a new assignment</a>
 
 <br>
@@ -30,12 +47,14 @@
 <form action="/parts/{{ part.id }}/edit" method="post">
     <input type="hidden" name="user_id" value="{{ session.user_id }}">
     <input type="submit" value="edit" class="btn btn-secondary">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 
 <br>
 <form action="/parts/{{ part.id }}/delete" method="post">
     <input type="hidden" name="user_id" value="{{ session.user_id }}">
     <input type="submit" value="delete" class="btn btn-danger">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 
 {% endif %}
